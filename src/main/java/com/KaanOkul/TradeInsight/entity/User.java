@@ -21,14 +21,22 @@ public class User {
     @Column(unique = true, name = "email")
     private String email;
 
+    @Column(name = "role")
+    private String role;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
     public User() {}
 
-    public User(Integer id, String username, String name, String password, String email) {
+    public User(Integer id, String username, String name, String password, String email, String role, boolean enabled) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.password = password;
         this.email = email;
+        this.role = role;
+        this.enabled = enabled;
     }
 
     public Integer getId() {
@@ -70,4 +78,12 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getRole() {return role; }
+
+    public void setRole(String role) {this.role = role; }
+
+    public boolean isEnabled() {return enabled; }
+
+    public void setEnabled(boolean enabled) {this.enabled = enabled; }
 }

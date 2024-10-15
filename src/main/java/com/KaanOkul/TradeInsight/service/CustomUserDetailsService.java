@@ -1,6 +1,7 @@
 package com.KaanOkul.TradeInsight.service;
 
 import com.KaanOkul.TradeInsight.entity.User;
+import com.KaanOkul.TradeInsight.exceptionHandling.UserNotFound;
 import com.KaanOkul.TradeInsight.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User could not be found"));
+                .orElseThrow(() -> new UserNotFound("User could not be found"));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

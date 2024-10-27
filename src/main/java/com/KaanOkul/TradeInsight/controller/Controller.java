@@ -22,16 +22,6 @@ public class Controller {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
-
-//    @PostMapping("/login")
-//    public ResponseEntity<User> login(@ResponseBody User user) {
-//        /*try to authenticate by getting username and password with UsernamePasswordAuthenticationToken class
-//          see if it's validated
-//          else catch the exception
-//
-//         */
-//    }
     @PostMapping("/users")
     public User saveUser(@RequestBody User user) {
         return userRepository.save(user);

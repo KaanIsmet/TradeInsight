@@ -8,13 +8,13 @@ import java.util.HashMap;
 public class Stock {
 
     private String symbol;
-    private HashMap<String, StockInterval> stockIntervals = new HashMap<>();
+    private HashMap<String, StockIntervalManager> TimeSeries = new HashMap<>(); //This is to differentiate the time series (e.g. Intra-daily, Daily, Weekly, Monthly)
 
     public Stock() {}
 
-    public Stock(String symbol, HashMap<String, StockInterval> stockIntervals) {
+    public Stock(String symbol, HashMap<String, StockIntervalManager> TimeSeries) {
         this.symbol = symbol;
-        this.stockIntervals = stockIntervals;
+        this.TimeSeries = TimeSeries;
     }
 
     public String getSymbol() {
@@ -25,11 +25,11 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public HashMap<String, StockInterval> getStockIntervals() {
-        return stockIntervals;
+    public HashMap<String, StockIntervalManager> getTimeSeries() {
+        return TimeSeries;
     }
 
-    public void setStockIntervals(HashMap<String, StockInterval> stockIntervals) {
-        this.stockIntervals = stockIntervals;
+    public void setTimeSeries(HashMap<String, StockIntervalManager> timeSeries) {
+        this.TimeSeries = timeSeries;
     }
 }

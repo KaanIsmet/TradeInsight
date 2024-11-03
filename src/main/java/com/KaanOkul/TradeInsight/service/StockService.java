@@ -54,4 +54,11 @@ public class StockService {
         return jsonNode;
     }
 
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
 }

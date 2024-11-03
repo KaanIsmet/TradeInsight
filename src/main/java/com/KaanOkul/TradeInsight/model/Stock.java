@@ -8,11 +8,11 @@ import java.util.HashMap;
 public class Stock {
 
     private String symbol;
-    private HashMap<String, HashMap<String, Float>> stockIntervals = new HashMap<>();
+    private HashMap<String, StockInterval> stockIntervals = new HashMap<>();
 
     public Stock() {}
 
-    public Stock(String symbol, HashMap<String, HashMap<String, Float>> stockIntervals) {
+    public Stock(String symbol, HashMap<String, StockInterval> stockIntervals) {
         this.symbol = symbol;
         this.stockIntervals = stockIntervals;
     }
@@ -25,11 +25,11 @@ public class Stock {
         this.symbol = symbol;
     }
 
-    public HashMap<String, HashMap<String, Float>> getStockIntervals() {
+    public HashMap<String, StockInterval> getStockIntervals() {
         return stockIntervals;
     }
 
-    public void setStockIntervals(HashMap<String, HashMap<String, Float>> stockIntervals) {
+    public void setStockIntervals(HashMap<String, StockInterval> stockIntervals) {
         this.stockIntervals = stockIntervals;
     }
 }

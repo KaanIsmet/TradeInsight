@@ -1,5 +1,8 @@
 package com.KaanOkul.TradeInsight.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class StockInterval {
     private float open;
     private float high;

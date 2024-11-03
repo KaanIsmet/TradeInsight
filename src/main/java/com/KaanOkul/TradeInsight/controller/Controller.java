@@ -4,6 +4,8 @@ package com.KaanOkul.TradeInsight.controller;
 import com.KaanOkul.TradeInsight.entity.User;
 import com.KaanOkul.TradeInsight.exceptionHandling.ResourceNotFound;
 import com.KaanOkul.TradeInsight.repository.UserRepository;
+import com.KaanOkul.TradeInsight.service.StockService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ public class Controller {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private StockService stockService;
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
@@ -35,5 +40,20 @@ public class Controller {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/stocks/{symbol}/{function}/{interval}")
+    public ResponseEntity<JsonNode> getStock(
+            @PathVariable String symbol,
+            @PathVariable String function,
+            @PathVariable String interval
+    ){
+        //implement on getting a specific stock info and return a json if successful
+        String url = stockService.getApiUrl();
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append(url);
+        strBuilder.append(function);
+        strBuilder.append("&");
 
+
+        return null; // placeholder
+    }
 }

@@ -4,6 +4,7 @@ package com.KaanOkul.TradeInsight.controller;
 import com.KaanOkul.TradeInsight.entity.User;
 import com.KaanOkul.TradeInsight.exceptionHandling.ResourceNotFound;
 import com.KaanOkul.TradeInsight.repository.UserRepository;
+import com.KaanOkul.TradeInsight.service.ApiBuilder;
 import com.KaanOkul.TradeInsight.service.StockService;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +47,12 @@ public class Controller {
             @PathVariable String function,
             @PathVariable String interval
     ){
+        ApiBuilder builder = new ApiBuilder();
         //implement on getting a specific stock info and return a json if successful
-        String url = stockService.getApiUrl();
-        StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append(url);
-        strBuilder.append(function);
-        strBuilder.append("&");
+        String url = builder.build(stockService.getApiUrl(),symbol, function, interval, stockService.getApiKey());
+        System.out.println(url);
 
+        return stockService.getStockData(url);
 
-        return null; // placeholder
     }
 }

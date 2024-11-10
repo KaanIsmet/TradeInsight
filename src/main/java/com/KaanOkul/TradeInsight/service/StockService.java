@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,8 +27,8 @@ public class StockService {
 
     public StockService() {}
 
-    public JsonNode getStockData(String url) {
-        JsonNode jsonNode = null;
+    public ResponseEntity<JsonNode> getStockData(String url) {
+
         try {
             URI apiUri = new URI(url);
             HttpClient client = HttpClient.newHttpClient();
@@ -41,17 +42,19 @@ public class StockService {
             if (response.statusCode() == 200) {
                 // implement getting json file with jackson
                 ObjectMapper objectMapper = new ObjectMapper();
-                jsonNode = objectMapper.readTree(response.body());
+                JsonNode jsonNode = objectMapper.readTree(response.body());
                 if (!jsonNode.isMissingNode()) {
-                    System.out.println("Json Body" + jsonNode);
+                    return ResponseEntity.ok(jsonNode);
                 }
+
+                return ResponseEntity.status(response.statusCode()).body(null);
 
             }
         } catch (InterruptedException | URISyntaxException | IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
         }
-
-        return jsonNode;
+        return null;
     }
 
     public String getApiKey() {

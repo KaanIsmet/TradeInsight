@@ -1,6 +1,6 @@
 # TradeInsight
 
-TradeInsight is a desktop application that combines stock data visualization as well as writing reports and linking to certain stock's data, urls, or graphs. It serves as a comprehensive tool for data analyst to make informed decisions by analyzing both quantitative stock data and writing comprehensive reports.
+TradeInsight is a web application that provides stock data visualization and trending stock articles. It serves as a comprehensive tool for data analyst to make informed decisions by analyzing both quantitative stock data and writing comprehensive reports.
 
 ## Features
 
@@ -8,10 +8,6 @@ TradeInsight is a desktop application that combines stock data visualization as 
   - Interactive charts with historical data and multiple time frame options.
   - Technical indicators like Moving Averages (SMA, EMA), RSI, MACD, and Bollinger Bands.
   - Customizable dashboards for tracking user-selected stocks.
- 
-= **Integrated Notes Taking
-  - Interactive Notes taking feature that allows users to write reports on stock data, document methodologies, assumptions, and steps taken during data analysis, or write technical documentation for tools, data pipelines, or workflows.
-  - Ability to create interactive links within the notes, so that analysts can easily search stocks, articles ,urls, or graphs.
 - **Company News and Articles**
   - Real-time news articles about companies fetched from financial news APIs.
   - Sentiment analysis of news articles (positive, negative, neutral) to understand market sentiment.
@@ -36,12 +32,15 @@ TradeInsight is a desktop application that combines stock data visualization as 
 
 ## Technology Stack
 - **Backend**: Spring Boot for handling data processing, API integrations, and user management.
+- **Frontend**: React, Tailwind CSS
 - **Data Visualization**: Chart.js or D3.js for detailed and interactive stock data charts.
 - **APIs**: Alpha Vantage api
   - News articles: NewsAPI or similar providers for the latest news updates.
 - **Database**: PostgreSQL or MongoDB for user data, watchlists, and article storage.
 - **Authentication**: OAuth for secure user login.
 - **Hosting**: AWS, Google Cloud, or Heroku for deployment.
+
+  
 
 ## Getting Started
 
@@ -58,12 +57,12 @@ TradeInsight is a desktop application that combines stock data visualization as 
    git clone git@github.com:your-username/TradeInsight.git
    cd TradeInsight
 
-3. Backend Setup
+4. Backend Setup
    ```bash
    cd backend
    mvn clean install
    mvn spring-boot:run
-4. Environmental Variables
+5. Environmental Variables
 - Set up your API keys for stock data and news services in the .env file or as environment variables.
    
  

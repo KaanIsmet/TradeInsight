@@ -8,4 +8,8 @@ public class ApiBuilder {
         String url = String.format("%s%s&symbol=%s&interval=%s&apikey=%s", initialUrl, function, symbol, interval,apiKey);
         return url;
     }
+
+    public String build(String initialUrl, String symbol, String function, String apiKey) {
+        return String.format("%s%s&symbol=%s&apikey=%s", initialUrl, function, symbol, apiKey);
+    }
 }

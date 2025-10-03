@@ -24,7 +24,7 @@ import static org.springframework.mock.http.server.reactive.MockServerHttpReques
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.mockito.ArgumentMatchers.any;
 
 @WebMvcTest(controllers = Controller.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class, UserDetailsServiceAutoConfiguration.class})
 public class ControllerTest {
@@ -66,29 +66,31 @@ public class ControllerTest {
 
     @Test
     void createUser() throws Exception {
-        User user = new User(5, "JohnSmith", "John Smith", "JohnSmith123", "john.smith@example.com", "USER", true);
+        // Don't include ID in the request (database generates it)
+        User user = new User(null, "JohnSmith", "John Smith", "JohnSmith123", "john.smith@example.com", "USER", true);
+
+        // The saved user HAS an ID (simulating database behavior)
         User savedUser = new User(5, "JohnSmith", "John Smith", "JohnSmith123", "john.smith@example.com", "USER", true);
 
-        // Mock the save method in the repository
-        when(userRepository.save(user)).thenReturn(savedUser);
+        // Mock ANY User object being saved
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-
-        // Convert the User object to JSON
+        // Convert the User object to JSON (without ID)
         String userJson = new ObjectMapper().writeValueAsString(user);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1/users")
-                .content(userJson)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .post("/api/v1/users")
+                        .content(userJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(5))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("JohnSmith"))
                 .andDo(result -> {
-                    System.out.println("Response Status: " + result.getResponse().getStatus());  // Debugging
-                    System.out.println("Response Body: " + result.getResponse().getContentAsString());  // Debugging
+                    System.out.println("Response Status: " + result.getResponse().getStatus());
+                    System.out.println("Response Body: " + result.getResponse().getContentAsString());
                 });
-
-
     }
 
 }

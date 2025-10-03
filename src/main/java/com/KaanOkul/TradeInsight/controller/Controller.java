@@ -60,7 +60,7 @@ public class Controller {
     }
 
     @GetMapping("/stocks/{symbol}/{function}/{interval}")
-    public ResponseEntity<JsonNode> getStock(
+    public ResponseEntity<JsonNode> getIntraDayData(
             @PathVariable String symbol,
             @PathVariable String function,
             @PathVariable String interval
@@ -68,9 +68,20 @@ public class Controller {
         ApiBuilder builder = new ApiBuilder();
         //implement on getting a specific stock info and return a json if successful
         String url = builder.build(stockService.getApiUrl(),symbol, function, interval, stockService.getApiKey());
-        System.out.println(url);
+        //System.out.println(url);
 
         return stockService.getStockData(url);
-
     }
+
+    @GetMapping("/stocks/{symbol}/{function}")
+    public ResponseEntity<JsonNode> getStockData (
+            @PathVariable String symbol,
+            @PathVariable String function
+    ) {
+        ApiBuilder builder = new ApiBuilder();
+        String url = builder.build(stockService.getApiUrl(), symbol, function, stockService.getApiKey());
+        return stockService.getStockData(url);
+    }
+
+
 }
